@@ -17,4 +17,4 @@ module seven_segment_display (
             default: seg = 7'b1111111; 
         endcase
     end
-endmodule
+endmodule //duc is gay
