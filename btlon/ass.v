@@ -1,12 +1,4 @@
 
-////////////////////////////////////////
-
-////////////////////////////////////////
-
-
-////////////////////////////////////////////
-
-////////////////////////////////////////////
 module traffic;
     input clk;
     input reset;
@@ -25,17 +17,17 @@ module traffic;
     One_Hz one(
         .clk(clk),
         .reset(reset),
-        .one_sec(clk_out),
+        .one_sec(clk_out)
     );
 
     seven_segment_display seg1 (
-        .led1(digit)
-        .display_seg1(seg)
+        .digit(led1),
+        .seg(display_seg1)
     );
 
     seven_segment_display seg2 (
-        .led2(digit)
-        .display_seg2(seg)
+        .digit(led2),
+        .seg(display_seg2)
     );
 
     always @(posedge reset) begin
@@ -48,8 +40,8 @@ module traffic;
         xanh_2 <= 1'b1;
         vang_2 <= 1'b0;
 
-        seg1 <= 4'd10;
-        seg2 <= 4'd7
+        led1 <= 4'd9;
+        led2 <= 4'd7;
     end
 
     always @(posedge one_sec ) begin
@@ -63,8 +55,8 @@ module traffic;
             vang_2 <= 1'b0;
 
             timer = timer + 1;
-            seg1 <= 4'd10;
-            seg2 <= 4'd7;
+            led1 <= 4'd9;
+            led2 <= 4'd7;
         end
         else if(timer == 5'd7) begin
             xanh_2 <= 1'b0;
@@ -72,9 +64,9 @@ module traffic;
             do_2 <= 1'b0;
 
             timer = timer + 1;
-            seg2 <= 4'd3;
+            led2 <= 4'd3;
         end
-        else if ( timer == 5'd10) begin
+        else if ( timer == 5'd9) begin
             do_1 <= 1'b0;
             vang_1 <= 1'b0;
             xanh_1 <= 1'b1;
@@ -84,8 +76,8 @@ module traffic;
             do_2 <= 1'b1;
 
             timer = timer + 1;
-            seg1 <= 4'd7;
-            seg2 <= 4'd10;
+            led1 <= 4'd7;
+            led2 <= 4'd9;
         end
         else if (timer == 5'd17) begin
             do_1 <= 1'b0;
@@ -97,7 +89,7 @@ module traffic;
             do_2 <= 1'b1;
 
             timer = timer + 1;
-            seg1 <= 4'd3;
+            led1 <= 4'd3;
         end
         else if (timer == 5'd20) begin
             timer <= 5'd0;
@@ -105,8 +97,8 @@ module traffic;
         end
         else begin
             timer = timer + 1;
-            seg1 = seg1 - 1;
-            seg2 = seg2 - 1;
+            led1 = led1 - 1;
+            led2 = led2 - 1;
         end
     end
 endmodule
