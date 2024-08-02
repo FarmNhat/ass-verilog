@@ -1,45 +1,8 @@
-module seven_segment_display (
-    input [3:0] digit,  // Binary input to display (0-9)
-    output reg [6:0] seg    // 7-segment display output (active low)
-);
-    always @(*) begin
-        case (digit)
-            4'd0: seg = 7'b1000000;
-            4'd1: seg = 7'b1111001;
-            4'd2: seg = 7'b0100100;
-            4'd3: seg = 7'b0110000;
-            4'd4: seg = 7'b0011001;
-            4'd5: seg = 7'b0010010;
-            4'd6: seg = 7'b0100000;
-            4'd7: seg = 7'b1111000;
-            4'd8: seg = 7'b0000000;
-            4'd9: seg = 7'b0010000;
-            default: seg = 7'b1111111; 
-        endcase
-    end
-endmodule
+
 ////////////////////////////////////////
 
 ////////////////////////////////////////
-module One_Hz (
-    input clk,         // 125 MHz input clock
-    input reset,       // Asynchronous reset
-    output reg clk_out      // 1 Hz output clock
-);
-    reg [26:0] counter;     // 27-bit counter to count up to 125,000,000
 
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
-            counter <= 27'd0;
-            clk_out <= 1'b0;
-        end else if (counter == 27'd124999999) begin
-            counter <= 27'd0;
-            clk_out <= ~clk_out; // Toggle the output clock
-        end else begin
-            counter <= counter + 1;
-        end
-    end
-endmodule
 
 ////////////////////////////////////////////
 
