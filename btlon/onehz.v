@@ -1,15 +1,17 @@
 module One_Hz (
-    input clk,         // 125 MHz input clock
+    input clk_in,         // 125 MHz input clock
     input reset,       // Asynchronous reset
     output reg clk_out      // 1 Hz output clock
 );
-    reg [26:0] counter;     // 27-bit counter to count up to 125,000,000
+
+    parameter TIME = 50000000;
+    reg [25:0] counter;     // counter tới 50,000,000 tại mạch mình xài 50MHz
 
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             counter <= 27'd0;
             clk_out <= 1'b0;
-        end else if (counter == 27'd124999999) begin
+        end else if (counter == TIME - 1) begin
             counter <= 27'd0;
             clk_out <= ~clk_out; // Toggle the output clock
         end else begin
