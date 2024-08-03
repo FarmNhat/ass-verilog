@@ -9,10 +9,10 @@ module One_Hz (
 
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            counter <= 27'd0;
+            counter <= 26'd0;
             clk_out <= 1'b0;
         end else if (counter == TIME - 1) begin
-            counter <= 27'd0;
+            counter <= 26'd0;
             clk_out <= ~clk_out; // Toggle the output clock
         end else begin
             counter <= counter + 1;
