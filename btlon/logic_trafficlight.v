@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module logic_trafficlight(n_light, s_light, e_light, w_light, clk, rst);
+module trafficlight(n_light, s_light, e_light, w_light, clk, rst);
     output reg [2:0] n_light, s_light, e_light, w_light;
     input clk;
     input rst;
@@ -21,12 +21,11 @@ module logic_trafficlight(n_light, s_light, e_light, w_light, clk, rst);
         end else begin
             case (state) 
                 north_south: begin
-                    if (count == 3'b111) begin
+                    if (count == 3'b101) begin
                         count <= 3'b000;
                         state <= north_south_y;
                     end else begin
                         count <= count + 3'b001;
-                        state <= north_south;
                     end
                 end
                 north_south_y: begin
@@ -35,16 +34,14 @@ module logic_trafficlight(n_light, s_light, e_light, w_light, clk, rst);
                         state <= west_east;
                     end else begin 
                         count <= count + 3'b001;
-                        state <= north_south_y;
                     end
                 end
                 west_east: begin
-                    if (count == 3'b111) begin
+                    if (count == 3'b101) begin
                         count <= 3'b000;
                         state <= west_east_y;
                     end else begin
                         count <= count + 3'b001;
-                        state <= west_east;
                     end
                 end
                 west_east_y: begin
@@ -53,7 +50,6 @@ module logic_trafficlight(n_light, s_light, e_light, w_light, clk, rst);
                         state <= north_south;
                     end else begin
                         count <= count + 3'b001;
-                        state <= west_east_y;
                     end
                 end
             endcase 
@@ -65,26 +61,26 @@ module logic_trafficlight(n_light, s_light, e_light, w_light, clk, rst);
             north_south: begin
                 n_light = 3'b001;
                 s_light = 3'b001;
-                e_light = 3'b010;
-                w_light = 3'b010;
+                e_light = 3'b100;
+                w_light = 3'b100;
             end
             north_south_y: begin
-                n_light = 3'b100;
-                s_light = 3'b100;
-                e_light = 3'b010;
-                w_light = 3'b010;
-            end
-            west_east: begin
-                n_light = 3'b010;
-                s_light = 3'b010;
-                e_light = 3'b001;
-                w_light = 3'b001;
-            end
-            west_east_y: begin
                 n_light = 3'b010;
                 s_light = 3'b010;
                 e_light = 3'b100;
                 w_light = 3'b100;
+            end
+            west_east: begin
+                n_light = 3'b100;
+                s_light = 3'b100;
+                e_light = 3'b001;
+                w_light = 3'b001;
+            end
+            west_east_y: begin
+                n_light = 3'b100;
+                s_light = 3'b100;
+                e_light = 3'b010;
+                w_light = 3'b010;
             end
         endcase
     end
